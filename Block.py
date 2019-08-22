@@ -1,9 +1,13 @@
 class Block():
     def __init__(self, window, location, size = 4):
+        self.size = size
+        self.window = window
         self.location = location #the left most location of the block
         self.neighboring_locations = [[self.location[0] + 1, i] for i in range(self.location[1] - 1, self.location[1] + size + 1)] + [[self.location[0] - 1, i] for i in range(self.location[1] - 1, self.location[1] + size + 1)]
         self.neighboring_locations.append([self.location[0], self.location[1] - 1])
         self.neighboring_locations.append([self.location[0], self.location[1] + size])
+        for i in range(self.location[1], self.location[1] + self.size):
+            self.window.replace([255,255,0], (self.location[0], i))
 
 
 
@@ -15,3 +19,5 @@ class Block():
     
     def delete(self):
         """deletes the displayed image of the block and the block class"""
+        for i in range(self.location[1], self.location[1] + self.size):
+            self.window.replace([0,0,0], (self.location[0], i))
