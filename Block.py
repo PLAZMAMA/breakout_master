@@ -18,6 +18,6 @@ class Block():
         return(False)
     
     def delete(self):
-        """deletes the displayed image of the block and the block class"""
+        """deletes the displayed image of the block"""
         for i in range(self.location[1], self.location[1] + self.size):
             self.window.replace([0,0,0], (self.location[0], i))
