@@ -1,5 +1,5 @@
 class Block():
-    def __init__(self, window, location, size = 4):
+    def __init__(self, window, location, size = 4, color = [255,255,0]):
         self.size = size
         self.window = window
         self.location = location #the left most location of the block
@@ -7,7 +7,7 @@ class Block():
         self.neighboring_locations.append([self.location[0], self.location[1] - 1])
         self.neighboring_locations.append([self.location[0], self.location[1] + size])
         for i in range(self.location[1], self.location[1] + self.size):
-            self.window.replace([255,255,0], (self.location[0], i))
+            self.window.replace(color, (self.location[0], i))
 
 
 

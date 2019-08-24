@@ -10,11 +10,13 @@ class Blocks():
 
         row = 0
         self.blocks = []
+        blocks_placed = 0
         while row <= block_area[0] and blocks_placed <= BLOCK_LIMIT:
             column = random.randint(0, block_area[1] // 10)
             while True:
                 self.blocks.append(Block(window, (row, column), block_size))
                 column += block_size + random.randint(0, block_area[1] // 10)
+                blocks_placed += 1
                 if column + block_size > block_area[1]:
                     break
     
