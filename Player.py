@@ -20,13 +20,15 @@ class Player():
             if self.location[1] < 0 :
                 return(True)
             self.window.replace(self.color, (self.location[0], self.location[1]))
-            self.window.replace([0,0,0], (self.location[0], location[1] + self.size + 1))
+            self.window.replace([0,0,0], (self.location[0], self.location[1] + self.size + 1))
             return(False)
 
         elif action == 2:
             self.location[1] += 1
-            if self.location >= window.size[1]:
+            if self.location >= self.window.size[1]:
                 return(True)
-            self.window.replace(self.color, (self.location[0], self.location[1] + size - 1))
+            self.window.replace(self.color, (self.location[0], self.location[1] + self.size - 1))
             self.window.replace([0,0,0], (self.location[0], self.location[1] - 1))
             return(False)
+        
+        return(False)
