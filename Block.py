@@ -11,12 +11,14 @@ class Block():
 
 
 
-    def hit(self, ball_location):
-        """returns a boolean value of it the ball hit it"""
-        if ball_location in self.neighboring_locations:
-            return(True)
+    def hit(self, ball_locations):
+        """returns a boolean value of if ball hit the block"""
+        for ball_location in ball_locations:
+            if ball_location in self.neighboring_locations:
+                return(True)
+
         return(False)
-    
+        
     def delete(self):
         """deletes the displayed image of the block"""
         for i in range(self.location[1], self.location[1] + self.size):

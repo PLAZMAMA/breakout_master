@@ -1,5 +1,5 @@
 import numpy as np
-import cv2
+from cv2 import imshow
 
 class Window():
     def __init__(self, size, background_color = 0):
@@ -12,4 +12,4 @@ class Window():
     
     def show(self):
         """displays the window in RGB"""
-        cv2.imshow(self.window)
+        imshow("env", self.window)

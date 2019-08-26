@@ -20,8 +20,17 @@ class Blocks():
                 if column + block_size > block_area[1]:
                     break
     
-    def destroy_contacting_blocks(self, ball_location):
-        """checks if a block is contacting the ball and destroys it"""
+    def destroy_contacting_blocks(self, ball_location, ball_size):
+        """checks if a block is contacting the ball and destroys it. returns if the ball contancted one of the balls"""
+        ball_locations = []
+        for i in range(ball_size[0]):
+            for ii in range(ball_size[1]):
+                ball_locations.append((ball_location[0] + i, ball_location[1] + ii))
+        c = 0
         for block in self.blocks:
-            if block.hit():
+            if block.hit(ball_locations):
                 block.delete()
+                c += 1
+        if c > 0:
+            return(True)
+        return(False)
