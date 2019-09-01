@@ -1,5 +1,8 @@
+import random
+
 class Ball():
-    def __init__(self, window, size = (2,2), color = [0,0,255], location = 0):
+    def __init__(self, window, size = (2,2), color = [0,0,255], location = 0, starting_direction = (random.choice([-1, 1]), random.randint(-2, -1))): 
+        self.direction = starting_direction
         self.color = color
         self.size = size
         self.window = window
@@ -48,5 +51,49 @@ class Ball():
             
             self.location[1] += 1
 
-    def movement(self, slope, contacted_player, contacted_block):
-        """moves and bounces the ball given a slope"""
+    def move_slope(self, slope):
+        """moves the ball given a slope (rise/y,run/x)"""
+        if abs(slope[0]) == slope[0]:
+            for _ in range(slope[0]):
+                self.move(0)
+        else:
+            for _ in range(abs(slope[0])):
+                self.move(1)
+
+        if abs(slope[1]) == slope[1]:
+            for _ in range(slope[1]):
+                self.move(3)
+        else:
+            for _ in range(abs(slope[1])):
+                self.move(2)
+
+    def get_surrounding_locations(self):
+        """return the balls surrounding locations"""
+        ball_locations = []
+        for i in range(self.size[0]):
+            for ii in range(self.size[1]):
+                ball_locations.append((self.location[0] + i, self.location[1] + ii))
+        
+        return(ball_locations)
+
+    def flip_number(self, number):
+        """flips the sign of the given number"""
+        if number < 0:
+            return(abs(number))
+        return(-number)
+    
+    def movement(self, hit_player, hit_block_on_side, hit_block_on_top, hit_block_on_buttom):
+        """moves and bounces the ball inside the window and bounces from objects inside the window(player, blocks)"""
+        if self.location[0] >= 0 or self.location[1] >= 0 or self.location[0] <= self.window.size[0] or self.location <= self.window.size[1]:
+            self.direction[1] = self.flip_number(self.direction[1])
+        elif hit_player:
+            self.direction[0] = self.flip_number(self.direction[0])
+            self.direction[1] = self.flip_number(self.direction[1])
+        elif hit_block_on_side:
+            self.direction[1] = self.flip_number(self.direction[1])
+        elif hit_block_on_buttom:
+            self.direction[0] = self.flip_number(self.direction[0])
+            self.direction[1] = self.flip_number(self.direction[1])
+        elif hit_block_on_top:
+            self.direction[0] = self.flip_number(self.direction[0])
+            self.direction[1] = self.flip_number(self.direction[1])
