@@ -21,12 +21,10 @@ class Blocks():
                     break
     
     def destroy_contacting_blocks(self, ball_locations):
-        """checks if a block is contacting the ball and destroys it. returns if the ball contancted one of the balls"""
+        """checks if a block is contacting the ball and destroys it. returns if the ball contancted one of the blocks"""
         c = 0
         for block in self.blocks:
             if block.hit(ball_locations):
                 block.delete()
                 c += 1
-        if c > 0:
-            return(True)
-        return(False)
+        

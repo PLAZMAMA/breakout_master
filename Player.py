@@ -19,21 +19,19 @@ class Player():
         return(False)
 
     def move(self, action):
-        """moves the player occurding to the given action and returns if the player is out of boundary due to the taken action"""
+        """moves the player occurding to the given action unless the player hit the boundary"""
         if action == 1:
+            if self.location[1] - 1 < 0 :
+                return(None)
             self.location[1] -= 1
-            if self.location[1] < 0 :
-                return(True)
             self.window.replace(self.color, (self.location[0], self.location[1]))
             self.window.replace([0,0,0], (self.location[0], self.location[1] + self.size + 1))
-            return(False)
 
         elif action == 2:
+            if self.location + 1 >= self.window.size[1]:
+                return(None)
             self.location[1] += 1
-            if self.location >= self.window.size[1]:
-                return(True)
             self.window.replace(self.color, (self.location[0], self.location[1] + self.size - 1))
             self.window.replace([0,0,0], (self.location[0], self.location[1] - 1))
-            return(False)
         
-        return(False)
+        return(None)

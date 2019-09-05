@@ -1,7 +1,7 @@
 import random
 
 class Ball():
-    def __init__(self, window, size = (2,2), color = [0,0,255], location = 0, starting_direction = (random.choice([-1, 1]), random.randint(-2, -1))): 
+    def __init__(self, window, size = (2,2), color = [0,0,255], location = 0, starting_direction = (random.randint(-2, -1), random.choice([-1, 1]))): 
         self.direction = starting_direction
         self.color = color
         self.size = size
@@ -82,8 +82,8 @@ class Ball():
             return(abs(number))
         return(-number)
     
-    def movement(self, hit_player, hit_block_on_side, hit_block_on_top, hit_block_on_buttom):
-        """moves and bounces the ball inside the window and bounces from objects inside the window(player, blocks)"""
+    def change_direction(self, hit_player, hit_block_on_side, hit_block_on_buttom, hit_block_on_top):
+        """changes the balls direction by looking if it hit any objects or the bounderys of the window"""
         if self.location[0] >= 0 or self.location[1] >= 0 or self.location[0] <= self.window.size[0] or self.location <= self.window.size[1]:
             self.direction[1] = self.flip_number(self.direction[1])
         elif hit_player:
@@ -97,3 +97,10 @@ class Ball():
         elif hit_block_on_top:
             self.direction[0] = self.flip_number(self.direction[0])
             self.direction[1] = self.flip_number(self.direction[1])
+    
+    def movement(self, hit_player, blocks):
+        """moves and bounces the ball around the window """
+        locations = self.get_surrounding_locations()
+        for block in blocks.blocks:
+            self.change_direction(hit_player, block.hit_block_on_side(locations), block.hit_block_on_buttom(locations), block.hit_block_on_top(locations))
+        self.move_slope(self.direction)
