@@ -3,11 +3,14 @@ class Block():
         self.size = size
         self.window = window
         self.location = location #the left most location of the block
-        self.upper_neighboring_locations = [[self.location[0] - 1, i] for i in range(self.location[1] - 1, self.location[1] + size + 1)]
-        self.lower_neighboring_locations =  [[self.location[0] + self.size, i] for i in range(self.location[1] - 1, self.location[1] + size + 1)]
-        self.side_neighboring_locations = ([self.location[0], self.location[1] - 1] + [self.location[0], self.location[1] + size])
+        self.upper_neighboring_locations = [[self.location[0] - 1, i] for i in range(self.location[1] - 1, self.location[1] + self.size[1] + 1)]
+        self.lower_neighboring_locations =  [[self.location[0] + self.size[0], i] for i in range(self.location[1] + self.size[0], self.location[1] + self.size[1] + 1)]
+        self.side_neighboring_locations = []
+        for i in range(self.size[0]):
+            self.side_neighboring_locations += [self.location[0] + i, self.location[1] - 1] + [self.location[0] + i, self.location[1] + self.size[1]]
+
         for i in range(self.location[0], self.location[0] + self.size[0]):
-            for ii in range(self.location[1], self.location[1] + self.size):
+            for ii in range(self.location[1], self.location[1] + self.size[1]):
                 self.window.replace(color, (self.location[0], i))
 
 

@@ -13,7 +13,7 @@ class Ball():
 
         for i in range(self.size[0]):
             for ii in range(self.size[1]):
-                self.window.replace(self.color, (self.location + i, self.location + ii))
+                self.window.replace(self.color, (self.location[0] + i, self.location[1] + ii))
         
     def move(self, direction):
         """

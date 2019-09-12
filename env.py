@@ -7,7 +7,6 @@ from gym import spaces
 class Env():
     def __init__(self):
         self.action_space = spaces.Discrete(3)
-        self.observation_space = spaces.Discrete(2)
 
     def observation(self):
         """returns the current observations"""
@@ -26,12 +25,13 @@ class Env():
         self.window.show()
     
     def reset(self):
-        """resets the enviornment"""
+        """resets the enviornment and returns the begining observation"""
         self.window = Window((80,40))
         BLOCK_AREA = (self.window.size[0]/4, self.window.size[1])
         self.blocks = Blocks(self.window, BLOCK_AREA)
         self.player = Player(self.window)
         self.ball = Ball(self.window)
+        self.observation_space = [self.window.size[1], (self.window.size[0] * self.window.size[1])]
         return(self.observation())
     
     def step(self, action):
