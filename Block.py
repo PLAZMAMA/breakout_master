@@ -11,7 +11,7 @@ class Block():
 
         for i in range(self.location[0], self.location[0] + self.size[0]):
             for ii in range(self.location[1], self.location[1] + self.size[1]):
-                self.window.replace(color, (self.location[0], i))
+                self.window.replace(color, (i, ii))
 
 
 
