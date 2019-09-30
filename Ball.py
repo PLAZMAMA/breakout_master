@@ -88,7 +88,6 @@ class Ball():
             self.direction[0] = self.flip_number(self.direction[0])
         elif hit_player:
             self.direction[0] = self.flip_number(self.direction[0])
-            self.direction[1] = self.flip_number(self.direction[1])
         elif hit_block_on_side:
             self.direction[1] = self.flip_number(self.direction[1])
         elif hit_block_on_buttom:

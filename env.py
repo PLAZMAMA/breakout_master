@@ -49,5 +49,5 @@ class Env():
         if ball_hit_player:
             reward = 1
         else:
-            reward = 0
+            reward = -1
         return(self.observation(), reward, self.done())

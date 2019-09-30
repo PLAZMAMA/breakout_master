@@ -2,19 +2,20 @@ import numpy as np
 import time
 
 class Agent():
-    def __init__(self, Env):
+    def __init__(self, Env, q_table_name = ""):
         self.env = Env()
-        self.env.reset()
-        self.q_table = np.random.uniform(low = -1.0, high = 1.0,size = (self.env.observation_space + [self.env.action_space.n]))
+        self.env.reset() #reseting to get the action and observation spaces
+        self.q_table = np.random.uniform(low = -1.0, high = 0.0,size = (self.env.observation_space + [self.env.action_space.n]))
 
-    def train(self, show_every = 500, show_stats_every = 1000, starting_epsilon = 0, learning_rate = 0.7, discount_factor = 0.1, episodes = 20000):
+    def train(self, episodes = 20000, show_every = 500, show_stats_every = 1000, learning_rate = 0.7, discount_factor = 0.1):
         """trains the agent"""
-        epsilon = starting_epsilon
+        if show_every == -1:
+            show_every = episodes + 1
         observation = self.env.reset()
         avrage = 0
         for episode in range(episodes):
             #increasing the discount factor as the learning goes
-            if (discount_factor < 0.9) and (episode % (episodes // 8) == 0):
+            if (discount_factor < 0.8) and (episode % (episodes // 8) == 0):
                 discount_factor += 0.1
             time_played = 0
             done = False
@@ -37,13 +38,11 @@ class Agent():
                 self.q_table[observation + (action, )] = new_q
                 observation = new_observation
 
-                #if episode % show_every == 0:
-                self.env.render()
-                time.sleep
+                if episode % show_every == 0:
+                    self.env.render()
             
             observation = self.env.reset()
             avrage += time_played
             if episode % show_stats_every == 0:
                 print(f"on episode: {episode}, avrage: {avrage // show_stats_every}")
                 avrage = 0
-

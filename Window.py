@@ -18,3 +18,4 @@ class Window():
         self.ax1.clear()
         self.ax1.imshow(window_img)
         plt.show(block = False)
+        plt.pause(0.1)
