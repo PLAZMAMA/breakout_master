@@ -1,5 +1,4 @@
 import random
-from Env import Env
 
 class Ball():
     def __init__(self, window, size = (2,2), color = [0,0,255], location = 0, starting_direction = [random.randint(-2, -1), random.choice([-1, 1])]): 
