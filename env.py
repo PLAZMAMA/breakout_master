@@ -30,7 +30,6 @@ class Env():
         """resets the enviornment and returns the begining observation"""
         try:
             plt.close(self.window.fig)
-            plt.close()
         except:
             print("couldn't close the windows image/figure")
         self.window = Window((80,40))
